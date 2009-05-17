@@ -1,0 +1,26 @@
+#! /bin/zsh
+# Utilities to install hooks from $HOME/.githooks into the current
+# git repository hooks. Invoked: check_git_hooks inside a git repository.
+# Hooks will be symlinked.
+install_hook() {
+    HOOKS="$HOME/.githooks"
+    REPO=`git rev-parse --git-dir`/hooks
+    if [ ! -h $REPO/$1 ]; then
+        echo "Installing hook $REPO/$1"
+        ln -s $HOOKS/$1 $REPO/$1
+    fi
+}
+
+check_git_hooks() {
+    local git_dir branch
+    HOOKS="$HOME/.githooks"
+    git_dir=$(git rev-parse --git-dir 2> /dev/null) || return
+    REPO=`git rev-parse --git-dir`/hooks
+    for HOOK in `find $HOOKS -type f -printf "%f "`; do
+        if [ `expr match $HOOK '.*\.sample'` -gt 0 ]; then
+            echo "Skipped $HOOK"
+        else
+            install_hook $HOOK
+        fi
+    done
+}

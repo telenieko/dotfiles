@@ -1,0 +1,10 @@
+# vim: foldmethod=marker
+# {{{ Models
+snippet mmodel
+	class ${1:ModelName}(models.Model):
+		${3:fields}
+
+		def __unicode__(self):
+			return "%s" % (${2:somefield})
+#}}}
+

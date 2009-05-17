@@ -1,0 +1,29 @@
+#! /bin/zsh
+vim() {
+    # My very own VIM launcher, it takes care of setting up some environment
+    # to make thing work "better", like setting up PYTHONPATH in a buildout
+    # project.
+    unset PYTHONPATH
+    unset DJSET       # DJSET stands for an abbreviated DJANGO_SETTINGS_MODULE
+    if [ -d parts/omelette ]; then
+        PYTHONPATH=parts/omelette:$PYTHONPATH
+    fi
+    if [ -d parts/django ]; then
+        PYTHONPATH=parts/django:$PYTHONPATH
+    fi
+    if [ -x bin/django ]; then
+        # If there's a bin/django we may be in a buildout environment that 
+        # has Django in it, so we get the settings module name from it.
+        DJSET=`sed -ne "s/.*main('\(.*\)').*/\1/p" bin/django`
+    fi
+    PROJECT=`basename $PWD`
+    #if [ `expr match "$PWD" ".*\/dev\/.*"` -eq 0 ]; then
+        # If we are not inside dev/ the project is "generic", so we
+        # do not end up making sessions for any folder we may run vim from.
+    #    PROJECT="generic"
+    #fi
+    echo -e "Launching VIM with\n\tPYTHONPATH=$PYTHONPATH\n\tDJSET=$DJSET\n\tPROJECT=$PROJECT\n"
+    PYTHONPATH=$PYTHONPATH DJANGO_SETTINGS_MODULE=$DJSET /usr/bin/vim \
+        "+let v:this_session = \"$PROJECT\"" "+SessionOpen $PROJECT" \
+        "+let sessionman_save_on_exit=1"
+}

@@ -1,0 +1,6 @@
+eval "$(lesspipe)"
+alias less='less -R'
+LESS_TERMCAP_us=$'\e[32m'
+LESS_TERMCAP_ue=$'\e[0m'
+LESS_TERMCAP_md=$'\e[1;31m'
+LESS_TERMCAP_me=$'\e[0m'

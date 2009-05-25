@@ -53,10 +53,6 @@ endif
 set printoptions=paper:a4,portrait:n
 
 " {{{ Key mappings
-" Winmanager
-map <c-w><c-t> :WMToggle<cr>
-map <c-w><c-f> :FirstExplorerWindow<cr>
-map <c-w><c-b> :BottomExplorerWindow<cr>
 " Buffer Explorer
 map <C-e> :BufExplorer<cr>
 map <f9> :BufExplorer<cr>

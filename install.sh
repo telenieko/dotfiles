@@ -54,7 +54,7 @@ if [ $DOVIM -eq 1 ]; then
         echo "$PREFIX/.vim is a directory, aborting!!"
         exit 1
     fi
-    ln -sf $BASEPATH/vim $PREFIX/.vim
+    ln -nsf $BASEPATH/vim/ $PREFIX/.vim
 fi
 if [ $DOZSH -eq 1 ]; then
     echo "Installing ZSH files."
@@ -66,7 +66,7 @@ if [ $DOZSH -eq 1 ]; then
         echo "$PREFIX/.zshrc is a file, aborting!!"
         exit 1
     fi
-    ln -sf $BASEPATH/zsh $PREFIX/.zsh
-    ln -sf $BASEPATH/zshrc $PREFIX/.zshrc
+    ln -nsf $BASEPATH/zsh/ $PREFIX/.zsh
+    ln -nsf $BASEPATH/zshrc $PREFIX/.zshrc
 fi
 

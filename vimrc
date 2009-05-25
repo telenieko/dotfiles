@@ -71,6 +71,8 @@ nmap <C-kDel> :quit<CR>
 imap <C-kDel> <Esc>:quit<CR>
 " }}}
 
+let g:bufExplorerShowRelativePath=1 
+
 " source local configuration file
 if filereadable(expand("$HOME/.vimrc.local"))
    source $HOME/.vimrc.local

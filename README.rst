@@ -33,13 +33,17 @@ at the end of .vimrc
 Some useful Key Mappings are setup in .vimrc:
 
     * Buffer Explorer:
+
       - F9: Opens it.
       - Shift+F9: Opens it in a Horizontal Split Window.
       - Control+F9: Opens it in a Vertical Split Window.
+
     * File Explorer:
+
       - F8: Opens it.
       - Shift+F8: Opens it in a Horizontal Split Window.
       - Control+F8: Opens it in a Vertical Split Window.
+
     * Control+Del: Closes current window.
     * F7: Show the saved sessions List.
 

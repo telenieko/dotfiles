@@ -8,6 +8,19 @@ to them.
 If you have no prior configurations (or do not like yours) you can run
 the provided install.sh script to install this configurations.
 
+To fork or not to fork
+======================
+
+If you plan to use those files "as-is" in your environment I'd recommend
+you to use the install.sh and place "small" customizations in:
+
+    * $HOME/.profile.local for shell environment
+    * $HOME/.vimrc.local for VIM customizations.
+
+If you want to do more advanced customizations you may consider adding them
+to the zsh and vim folders with proper variables to enabled/disable the
+new behaviours and publish the changes ;)
+
 What's there
 ============
 

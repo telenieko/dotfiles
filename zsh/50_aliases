@@ -31,13 +31,13 @@ alias md='mkdir'
 alias rd='rmdir'
 alias rm='rm -i'
 
-conf_push () {
-    echo -n "PUSHING TO $1"
-    rsync -au --exclude=.git --delete ~madcoder/.madconf/ "$1":.madconf/
-    ssh "$1" LC_ALL=C .madconf/bin/madconf
-    echo "."
-}
+#conf_push () {
+#    echo -n "PUSHING TO $1"
+#    rsync -au --exclude=.git --delete ~madcoder/.madconf/ "$1":.madconf/
+#    ssh "$1" LC_ALL=C .madconf/bin/madconf
+#    echo "."
+#}
 
 alias servedir='python -c "import SimpleHTTPServer;SimpleHTTPServer.test()"'
 alias servedircgi='python -c "import CGIHTTPServer;CGIHTTPServer.test()"'
-alias xrunserver='xterm -T "runserver `basename $PWD`" -e "cd $PWD; ./manage.py runserver 0.0.0.0:8000; sleep 2 "'
+#alias xrunserver='xterm -T "runserver `basename $PWD`" -e "cd $PWD; ./manage.py runserver 0.0.0.0:8000; sleep 2 "'

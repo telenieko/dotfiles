@@ -1,15 +1,7 @@
 #! /bin/zsh
-
-
 export MANWIDTH=80
 export EDITOR=vim
 export CCACHE_DIR=$HOME/.ccache
 
 unset VERBOSE
-
-export LC_NUMERIC=es_ES.UTF-8
-export LC_TIME=es_ES.UTF-8
-export LC_MONETARY=es_ES.UTF-8
-export LC_PAPER=es_ES.UTF-8
-export LC_MEASUREMENT=es_ES.UTF-8
 

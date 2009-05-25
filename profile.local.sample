@@ -1,0 +1,22 @@
+# Add stuff to $PATH
+# export PATH="$HOME/bin:$HOME/morebin"
+
+# export EMAIL="johndoe@example.com"
+# export FULLNAME="John Doe"
+# export DEBEMAIL=$EMAIL
+# export DEBFULLNAME=$FULLNAME
+# export GIT_AUTHOR_NAME=$FULLNAME
+# export GIT_COMMITTER_NAME=$FULLNAME
+# export GIT_AUTHOR_EMAIL=$DEBEMAIL
+# export GIT_COMMITTER_EMAIL=$DEBEMAIL
+
+# Some locale configs (I run English with Spanish numbers)
+# export LC_NUMERIC=es_ES.UTF-8
+# export LC_TIME=es_ES.UTF-8
+# export LC_MONETARY=es_ES.UTF-8
+# export LC_PAPER=es_ES.UTF-8
+# export LC_MEASUREMENT=es_ES.UTF-8
+
+# ssh() { knock $1; /usr/bin/ssh $* }
+# sshreal() { /usr/bin/ssh }
+

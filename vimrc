@@ -23,6 +23,7 @@ let g:netrw_liststyle = 1
 let sessionoptions = "buffers,curdir,folds,help,tabpages,winsize"
 
 map <F7> :SessionList<CR>
+map <F6> :TlistToggle<CR>
 
 " {{{ Autocommands
 au FileType mail   set tw=70
@@ -62,6 +63,7 @@ map <C-f9> :VSBufExplorer<cr>
 map <f8> :e %:p:h/<cr>
 map <S-f8> :Sex %:p:h/<cr>
 map <C-f8> :Vex %:p:h/<cr>
+
 " Close windows
 nmap <C-kDel> :quit<CR>
 imap <C-kDel> <Esc>:quit<CR>

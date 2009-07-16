@@ -1,0 +1,94 @@
+#! /bin/zsh
+# Alias to update a concrete DNS zone.
+# It requires a file $HOME/.dnskey that has lines in format:
+# <zone name>:<ns server>:<our name>:<our key>
+# ("our name" is the name you would setup in named.conf)
+# For BIND, in your zone definition you would add something like:
+# 
+# zone "example.com" {
+#   type master; file "/etc/bind/example.com.db";
+#   // Any other zone options..
+#   update-policy {
+#       // YOU SHOULD REALLY READ BIND MANUAL ON THIS
+#       // AND ONLY GIVE ACCESS TO THE RECORDS YOU WANT
+#       // TO EDIT !!!!!!!!!
+#       grant my.hostname. wildcard * ANY;
+#   };
+# };
+#
+# // Generate key with:
+# // dnssec-keygen -a hmac-md5 -b 128 -n HOST my.hostname
+# key my.hostname. {
+#   algorithm HMAC-MD5;
+#   secret <the key>;
+# };
+# 
+# ~/.dnskey would then include:
+# example.com.:<ip of bind server>:my.hostname.:<the key>
+
+get_zone_key() {
+    # Read the key for a given zone.
+    ZONE=$1
+    unset Z H N K
+    exec < ~/.dnskey
+    while read LINE; do
+        Z=`echo $LINE | cut -d: -f1`
+        H=`echo $LINE | cut -d: -f2`
+        N=`echo $LINE | cut -d: -f3`
+        K=`echo $LINE | cut -d: -f4`
+        if [ "$Z" = "$ZONE" ]; then
+            export ZONE=$Z HOST=$H NAME=$N KEY=$K 
+            return 0
+        fi
+    done
+    return 1
+}
+
+
+dns_setrecord() {
+    # $1 = zone
+    # $2 = record
+    # $3 = record type
+    # $4 = record value
+    get_zone_key $1
+    if [ $? -eq 1 ]; then
+        echo "No key for zone $1"
+        return 1
+    fi
+    TMPFILE=`mktemp nsupdate.XXX`
+    RECORD=$2
+    TYPE=$3
+    shift; shift; shift
+    cat << EOF > $TMPFILE
+        server $HOST
+        update delete $RECORD.$ZONE A
+        update add $RECORD.$ZONE 180 $TYPE $*
+        show
+        send
+EOF
+    cat $TMPFILE | nsupdate -y $NAME:$KEY 
+}
+
+dns_deleterecord() {
+    # We need a file ~/.dnskey that has:
+    # <our_name>:<key_value> in one line
+    #
+    # $1 = zone
+    # $2 = record
+    # $3 = record type
+    get_zone_key $1
+    if [ $? -eq 1 ]; then
+        echo "No key for zone $1"
+        return 1
+    fi
+    TMPFILE=`mktemp nsupdate.XXX`
+    RECORD=$2
+    TYPE=$3
+    cat << EOF > $TMPFILE
+        server $HOST
+        update delete $RECORD.$ZONE A
+        show
+        send
+EOF
+    cat $TMPFILE | nsupdate -y $NAME:$KEY 
+}

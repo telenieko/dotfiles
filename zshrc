@@ -25,6 +25,10 @@ _zshrc_main () {
 }
 _zshrc_main
 
+if [ -f ~/.zshrc.local ]; then
+    source ~/.zshrc.local
+fi
+
 if [ -f ~/.profile.local ]; then
     source ~/.profile.local
 fi

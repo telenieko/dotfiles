@@ -1,40 +1,16 @@
 #! /bin/zsh
 
 autoload colors && colors
+autoload -Uz vcs_info
 
 precmd() {
-    local git_dir branch
     title "zsh" "$USER@%m" "%55<...<%~"
 
     psvar=()
-    git_dir=$(git rev-parse --git-dir 2> /dev/null) || return
-    if test -d "$git_dir/../.dotest"; then
-        if test -f "$git_dir/../.dotest/rebasing"; then
-            psvar[3]="rebase"
-        elif test -f "$git_dir/../.dotest/applying"; then
-            psvar[3]="am"
-        else
-            psvar[3]="am/rebase"
-        fi
-        branch="$(git symbolic-ref HEAD 2>/dev/null)"
-    elif test -f "$git_dir/.dotest-merge/interactive"; then
-        psvar[3]="rebase -i"
-        branch="$(cat "$git_dir/.dotest-merge/head-name")"
-    elif test -d "$git_dir/.dotest-merge"; then
-        psvar[3]="rebase -m"
-        branch="$(cat "$git_dir/.dotest-merge/head-name")"
-    elif test -f "$git_dir/MERGE_HEAD"; then
-        psvar[3]="merge"
-        branch="$(git symbolic-ref HEAD 2>/dev/null)"
-    else
-        test -f "$git_dir/BISECT_LOG" && psvar[3]="bisect"
-        branch="$(git symbolic-ref HEAD 2>/dev/null)" || \
-            branch="$(git describe --exact-match HEAD 2>/dev/null)" || \
-            branch="$(cut -c1-7 "$git_dir/HEAD")..."
+    vcs_info
+    if [ "${vcs_info_msg_0_}" != "" ]; then
+      psvar[1]="${vcs_info_msg_0_}"
     fi
-
-    psvar[1]="${$(readlink -f ${git_dir:h})/$HOME/~}"
-    psvar[2]="${branch#refs/heads/}"
 }
 
 _mad_prompt_setup() {

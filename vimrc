@@ -23,7 +23,11 @@ let g:netrw_liststyle = 1
 let sessionoptions = "buffers,curdir,folds,help,tabpages,winsize"
 
 map <F7> :SessionList<CR>
+
+" Taglist
 map <F6> :TlistToggle<CR>
+let Tlist_GainFocus_On_ToggleOpen = 1
+let Tlist_Close_On_Select = 1
 
 " {{{ Autocommands
 au FileType mail   set tw=70

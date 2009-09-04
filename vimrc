@@ -69,6 +69,14 @@ nmap <C-kDel> :quit<CR>
 imap <C-kDel> <Esc>:quit<CR>
 " }}}
 
+set wildmenu
+nnoremap ' `
+nnoremap ` '
+let mapleader = ","
+set history=1000
+set title
+set scrolloff=3
+
 let g:bufExplorerShowRelativePath=1 
 
 " source local configuration file

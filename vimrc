@@ -83,6 +83,9 @@ set scrolloff=3
 
 let g:bufExplorerShowRelativePath=1 
 
+"let $PYTHONPATH .= "/home/marc/.vim/ropevim/"
+"source ~/.vim/ropevim/ropevim.vim
+
 " source local configuration file
 if filereadable(expand("$HOME/.vimrc.local"))
    source $HOME/.vimrc.local

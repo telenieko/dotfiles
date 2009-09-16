@@ -55,6 +55,8 @@ if [ $DOVIM -eq 1 ]; then
         exit 1
     fi
     ln -nsf $BASEPATH/vim/ $PREFIX/.vim
+    ln -nsf $BASEPATH/vimrc $PREFIX/.vimrc
+    ln -nsf $BASEPATH/gvimrc $PREFIX/.gvimrc
 fi
 if [ $DOZSH -eq 1 ]; then
     echo "Installing ZSH files."

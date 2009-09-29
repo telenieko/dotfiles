@@ -20,7 +20,7 @@ let g:netrw_list_hide = "\.pyc,\.swp,\.bak,\.git"
 let g:netrw_special_syntax = 1
 let g:netrw_liststyle = 1
 
-let sessionoptions = "buffers,curdir,folds,help,tabpages,winsize"
+let sessionoptions = "buffers,curdir,help,tabpages,winsize"
 
 map <F7> :SessionList<CR>
 
@@ -28,6 +28,7 @@ map <F7> :SessionList<CR>
 map <F6> :TlistToggle<CR>
 let Tlist_GainFocus_On_ToggleOpen = 1
 let Tlist_Close_On_Select = 1
+let Tlist_Process_File_Always = 1
 
 " {{{ Autocommands
 au FileType mail   set tw=70
@@ -83,8 +84,16 @@ set scrolloff=3
 
 let g:bufExplorerShowRelativePath=1 
 
-"let $PYTHONPATH .= "/home/marc/.vim/ropevim/"
-"source ~/.vim/ropevim/ropevim.vim
+" Statusline
+set laststatus=2
+set statusline=%f%m%r%h%w\ %l,%v\ [%p%%]\ [%{Tlist_Get_Tagname_By_Line()}]
+
+" Supertab
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabRetainCompletionType = 0
+
+let $PYTHONPATH .= expand("$HOME/.vim/ropevim/")
+source $HOME/.vim/ropevim/ropevim.vim
 
 " source local configuration file
 if filereadable(expand("$HOME/.vimrc.local"))

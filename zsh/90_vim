@@ -1,8 +1,9 @@
 #! /bin/zsh
-vimp() {
+VIMP() {
     # My very own VIM launcher, it takes care of setting up some environment
     # to make thing work "better", like setting up PYTHONPATH in a buildout
     # project.
+    V=$1
     unset PYTHONPATH
     unset DJSET       # DJSET stands for an abbreviated DJANGO_SETTINGS_MODULE
     DIR=$PWD
@@ -14,6 +15,7 @@ vimp() {
     fi
     if [ -d src ]; then
         DIR=$PWD/src/
+        PYTHONPATH=$DIR:$PYTHONPATH
     fi
     if [ -x bin/django ]; then
         # If there's a bin/django we may be in a buildout environment that 
@@ -27,10 +29,13 @@ vimp() {
     #    PROJECT="generic"
     #fi
     echo -e "Launching VIM with\n\tPYTHONPATH=$PYTHONPATH\n\tDJSET=$DJSET\n\tPROJECT=$PROJECT\n"
-    PYTHONPATH=$PYTHONPATH DJANGO_SETTINGS_MODULE=$DJSET /usr/bin/vim \
+    PYTHONPATH=$PYTHONPATH DJANGO_SETTINGS_MODULE=$DJSET $V \
         "+let v:this_session = \"$PROJECT\"" \
         "+let sessionman_save_on_exit=1" \
         "+SessionOpen $PROJECT" \
         "+cd $DIR" \
         $*
 }
+
+vimp() { VIMP /usr/bin/vim }
+gvimp() { VIMP /usr/bin/gvim }

@@ -43,3 +43,7 @@ alias servedircgi='python -c "import CGIHTTPServer;CGIHTTPServer.test()"'
 #alias xrunserver='xterm -T "runserver `basename $PWD`" -e "cd $PWD; ./manage.py runserver 0.0.0.0:8000; sleep 2 "'
 
 alias clipboard='xclip -i -selection clipboard'
+
+# Git log ( http://blog.matt-darby.com/posts/727-pretty-git-log-with-graph )
+alias gl='git log --graph --pretty=format:"%Cred%h%Creset — %s %Cgreen(%cr)%Creset" --abbrev-commit --date=relative'
+

@@ -52,8 +52,13 @@ dns_setrecord() {
     # $4 = record value
     get_zone_key $1
     if [ $? -eq 1 ]; then
-        echo "No key for zone $1"
+        echo "No data for zone $1"
         return 1
+    fi
+    if [ "$KEY" = "" ]; then
+        AUTH=""
+    else
+        AUTH="$NAME:$KEY"
     fi
     TMPFILE=`mktemp nsupdate.XXX`
     RECORD=$2
@@ -66,7 +71,11 @@ dns_setrecord() {
         show
         send
 EOF
-    cat $TMPFILE | nsupdate -y $NAME:$KEY 
+    if [ "$AUTH" = "" ]; then
+        cat $TMPFILE | nsupdate
+    else
+        cat $TMPFILE | nsupdate -y $AUTH
+    fi
 }
 
 dns_deleterecord() {
@@ -78,8 +87,13 @@ dns_deleterecord() {
     # $3 = record type
     get_zone_key $1
     if [ $? -eq 1 ]; then
-        echo "No key for zone $1"
+        echo "No data for zone $1"
         return 1
+    fi
+    if [ "$KEY" = "" ]; then
+        AUTH=""
+    else
+        AUTH="$NAME:$KEY"
     fi
     TMPFILE=`mktemp nsupdate.XXX`
     RECORD=$2
@@ -90,5 +104,9 @@ dns_deleterecord() {
         show
         send
 EOF
-    cat $TMPFILE | nsupdate -y $NAME:$KEY 
+    if [ "$AUTH" = "" ]; then
+        cat $TMPFILE | nsupdate
+    else
+        cat $TMPFILE | nsupdate -y $AUTH
+    fi
 }
